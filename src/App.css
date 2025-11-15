@@ -4,5 +4,50 @@
   padding: 2rem;
 }
 
+.form-container {
+  max-width: 400px; 
+  margin: 3rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc; /* Valfritt: lägg till en ram för att se behållarens gränser */
+  border-radius: 8px; /* Valfritt: rundade hörn */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;       
+  padding: 1rem;
+}
 
+.form label {
+  /* Gör label till ett block för att etikett och input ska staplas */
+  display: flex;
+  flex-direction: column; /* Gör att texten ("Username") och inputfältet staplas */
+  gap: 0.5rem; /* Utrymme mellan etikettens text och inputfältet */
+  font-weight: bold;
+}
+
+.form input[type="text"], 
+.form input[type="password"] {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Stilar för knappen */
+.form button[type="submit"] {
+  padding: 1rem;
+  background-color: #236d3e; 
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
