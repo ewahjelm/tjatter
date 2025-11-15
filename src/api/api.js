@@ -1,71 +1,36 @@
-///////// Anrop mot chatify API
-const API_URL = "https://chatify-api.up.railway.app"
+import axios from "axios";
 
-// Hämta CSRF
+const api = axios.create({
+  baseURL: "https://chatify-api.up.railway.app",
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true, // om servern sätter cookies
+});
+
+// Interceptor – JWT skickas alltid om den finns
+api.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Hämta CSRF-token
 export async function fetchCsrfToken() {
-    try {
-        const res = await fetch(`${API_URL}/csrf}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json"
-        }
-        });
-
-        if (!res.ok) {
-        throw new Error("Något gick fel när CSRF-token hämtades.");
-        }
-
-        const data = await res.json();
-        const csrfToken = data.csrfToken;
-
-        if (csrfToken) {
-        sessionStorage.setItem("csrfToken", csrfToken);
-        console.log("CSRF-token sparad:", csrfToken);
-        } else {
-        console.error("Ingen CSRF-token i svaret.");
-        }
-    } catch (err) {
-        console.error(err);
-    }
+  const { data } = await api.patch("/csrf", {});
+  console.log("csrf", data); //test
+  return data.csrfToken;
 }
 
-//Använd csrf för att logga in med username & password  - få en jwt
-export async function login(username, password) {
-    try {
-        const csrfToken = sessionStorage.getItem("csrfToken");
-
-        if (!csrfToken) {
-        throw new Error("Ingen CSRF-token finns. Kör fetchCsrfToken() först.");
-        }
-
-        const res = await fetch(`${API_URL}/auth/token`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password,
-            csrfToken
-        })
-        });
-
-        if (!res.ok) {
-        throw new Error("Inloggning misslyckades.");
-        }
-
-        const data = await res.json();
-        const token = data.token;
-
-        if (token) {
-        sessionStorage.setItem("jwtToken", token);
-        console.log("JWT sparad:", token);
-        } else {
-        console.error("Ingen token i svaret.");
-        }
-
-        return token;
-    } catch (err) {
-        console.error(err);
-    }
+// Få jwt med inloggning + csrf
+export async function fetchJwtToken(username, password, csrfToken) {
+  const { data } = await api.post("/auth/token", {
+    username,
+    password,
+    csrfToken,
+  });
+  console.log("jwt", data);
+  return data; // jwt    { token: "..." }
 }
+
+export default api;
