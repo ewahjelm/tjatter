@@ -3,19 +3,27 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login, Register, Chat } from './pages'
 import LoginForm from './components/LoginForm'
 import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path='/' element={ <Login/> }/>
-          <Route path='/login' element={ <LoginForm/> }/>
+          <Route path='/login' element={ <Login/> }/>
           <Route path='/register' element={ <Register/> }/>
-          <Route path='/chat' element={ <Chat/> }/>
+          <Route 
+            path='/chat' 
+            element={ 
+              <ProtectedRoute>
+                <Chat/>
+              </ProtectedRoute> 
+            }
+          />
         </Routes>
-      </Router>
-    </AuthProvider>  
+      </AuthProvider>  
+    </Router>
   )
 }
 
