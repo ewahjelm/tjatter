@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { fetchCsrfToken } from "../api/api";
+import { fetchCsrfToken, fetchJwtToken } from "../api/api";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+    const [user, setUser] = useState(() =>
+        JSON.parse(sessionStorage.getItem("user")) || null);
+
+    const [token, setToken] = useState(sessionStorage.getItem("token") || null);
     const [csrfToken, setCsrfToken] = useState(null);
 
     // Hämtar CSRF när sidan laddas 
@@ -22,7 +24,7 @@ export function AuthProvider({ children }) {
         initAuth();
     }, []);
 
-    // Login och få jwt mha csrf
+    // Logga in och få jwt mha csrf
     const login = async (username, password) => {
         if (!csrfToken) {
         console.error("CSRF-token not loaded yet");
@@ -30,12 +32,13 @@ export function AuthProvider({ children }) {
         }
         try {
         const data = await fetchJwtToken(username, password, csrfToken);
-        console.log("data före decoding i AuthContext: login fetchJwt", data);
-        console.log("data.token:", data.token );
         setToken(data.token);
-        const decoded = jwtDecode(data.token)
-        console.log("decoded token", decoded);
-        sessionStorage.setItem("token", data.token )
+        sessionStorage.setItem("token", data.token);
+
+        const decoded = jwtDecode(data.token);
+        setUser(decoded);
+        sessionStorage.setItem("user", JSON.stringify(decoded));
+
         return true;
         } catch (err) {
         console.error("Login misslyckades:", err);
@@ -47,6 +50,7 @@ export function AuthProvider({ children }) {
         setUser(null);
         setToken(null);
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
     };
 
     return (
