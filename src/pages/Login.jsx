@@ -10,13 +10,14 @@ export default function Login () {
 
     async function handleLogin({ username, password }) {
         setError(null);
-    try {
-        await login(username, password);
-        navigate("/chat")
-    } catch (err) {
-    setError(err.message || "Ett fel uppstod vid inloggning");
+        const success = await login(username, password);
+        if (success) {
+            navigate("/chat");
+        } else {
+            setError("Felaktigt användarnamn eller lösenord");
+        }
     }
-}
+
 
 return (
 <div className="login-container">
