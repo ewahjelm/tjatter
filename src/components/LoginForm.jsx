@@ -5,8 +5,9 @@ export default function LoginForm({ onSubmit }) {
     const [password, setPassword] = useState("");
 
     function handleSubmit(e) {
+        // skickar input upp till Login-container
         e.preventDefault();
-        onSubmit({ username, password }); // skickas upp till Login page
+        onSubmit({ username, password }); 
     }
 
     return(

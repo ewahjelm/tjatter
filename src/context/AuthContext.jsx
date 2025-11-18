@@ -1,48 +1,25 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { fetchCsrfToken, fetchJwtToken } from "../api/api";
-import { jwtDecode } from "jwt-decode";
+import { createContext, useContext, useState} from "react";
+import {login as apiLogin } from "../api/api"
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(() =>
-        JSON.parse(sessionStorage.getItem("user")) || null);
-
-    const [token, setToken] = useState(sessionStorage.getItem("token") || null);
-    const [csrfToken, setCsrfToken] = useState(null);
-
-    // Hämtar CSRF när sidan laddas 
-    useEffect(() => {
-    async function initAuth() {
-        try {
-            const csrf = await fetchCsrfToken();
-            setCsrfToken(csrf);
-        } catch (err) {
-            console.error("Fick ingen CSRF:", err);
-        } 
-    }
-        initAuth();
-    }, []);
-
-    // Logga in och få jwt mha csrf
+    const [user, setUser] = useState(
+        JSON.parse(sessionStorage.getItem("user")) || null
+    );
+    
+    // Logga in och få jwt sam tillgång till hela user-objektet
     const login = async (username, password) => {
-        if (!csrfToken) {
-        console.error("CSRF-token not loaded yet");
-        return false;
-        }
         try {
-        const data = await fetchJwtToken(username, password, csrfToken);
-        setToken(data.token);
-        sessionStorage.setItem("token", data.token);
+        const { user, token } = await apiLogin(username, password)
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user));
 
-        const decoded = jwtDecode(data.token);
-        setUser(decoded);
-        sessionStorage.setItem("user", JSON.stringify(decoded));
+        setUser(user);
 
-        return true;
-        } catch (err) {
-        console.error("Login misslyckades:", err);
-        return false;
+        } catch (error) {
+        console.error("Login misslyckades:", error);
+        throw error;
         }
     };
 
@@ -57,8 +34,7 @@ export function AuthProvider({ children }) {
         <AuthContext.Provider
         value={{
             user,
-            token,
-            csrfToken,
+            // token,
             login,
             logout,
         }}
