@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import LoginForm from "../components/LoginForm";
 
+
 export default function Login () {
     const { login } = useAuth();
     const [error, setError] = useState(null);
@@ -20,19 +21,13 @@ export default function Login () {
         } catch (err) {
             setError("Nu blev det nog fel användarnamn eller lösenord. Försök igen!")
         }
-        /* const success = await login(username, password);
-        if (success) {
-            navigate("/chat");
-        } else {
-            setError("Felaktigt användarnamn eller lösenord");
-        } */
     }
 
     return (
-    <div className="login-container">
-        <h4>Välkommen till chat-appen</h4>
+    <div className="form-container">
+        <h2>Välkommen till chat-appen</h2>
         <h1>Tjatter</h1>
-        <h4>Logga in</h4>
+        <h3>Logga in</h3>
         <LoginForm onSubmit={handleLogin} />
         <p>Har du inget konto?  <Link to="/register">Registrera dig här</Link> </p>
 
