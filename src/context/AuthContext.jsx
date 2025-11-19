@@ -1,5 +1,5 @@
 import { createContext, useContext, useState} from "react";
-import {login as apiLogin } from "../api/api"
+import {login as apiLogin, register as apiRegister } from "../api/api"
 
 const AuthContext = createContext();
 
@@ -8,18 +8,28 @@ export function AuthProvider({ children }) {
         JSON.parse(sessionStorage.getItem("user")) || null
     );
     
-    // Logga in och få jwt sam tillgång till hela user-objektet
+    const register = async (username, password, email, avatar) => {
+        try {
+            const result = await apiRegister(username, password, email, avatar)
+            return result;
+        } catch (error) {
+            console.error("Registreringen misslyckades:", error);
+            throw error;
+        }
+    };
+
+    // Logga in och få jwt samt tillgång till hela user-objektet
     const login = async (username, password) => {
         try {
-        const { user, token } = await apiLogin(username, password)
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("user", JSON.stringify(user));
+            const { user, token } = await apiLogin(username, password)
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify(user));
 
-        setUser(user);
+            setUser(user);
 
         } catch (error) {
-        console.error("Login misslyckades:", error);
-        throw error;
+            console.error("Login misslyckades:", error);
+            throw error;
         }
     };
 
@@ -34,9 +44,9 @@ export function AuthProvider({ children }) {
         <AuthContext.Provider
         value={{
             user,
-            // token,
             login,
             logout,
+            register,
         }}
         >
         {children}
