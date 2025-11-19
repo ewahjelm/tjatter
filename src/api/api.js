@@ -29,6 +29,31 @@ async function getCsrf() {
     return cachedCsrf;
 }
 
+// Registera ny användare
+export async function register(username, password, email, avatar) {
+    const csrf = await getCsrf();
+
+    try {
+        const res = await api.post("/auth/register", {
+        username,
+        password,
+        email,
+        avatar,
+        csrfToken: csrf,
+        });
+
+        console.log("Register response:", res);
+        return { status: res.status, data: res.data };
+
+    } catch (err) {
+        console.log("Register error:", err.response || err);
+        if (err.response) {
+        return { status: err.response.status, data: err.response.data };
+        }
+        return { status: 500, data: null }
+    }
+}
+
 // Få jwt med inloggning + csrf
 export async function login(username, password) {
     const csrf = await getCsrf();
