@@ -13,7 +13,7 @@ export default function LoginForm({ onSubmit }) {
     return(
         <form onSubmit={handleSubmit} className="form">
             <label>
-                Username
+                Användarnamn
                 <input 
                     type="text"
                     value={username}
@@ -23,7 +23,7 @@ export default function LoginForm({ onSubmit }) {
             </label>
 
             <label>
-                Password
+                Lösenord
                 <input 
                     type="password"
                     value={password}
