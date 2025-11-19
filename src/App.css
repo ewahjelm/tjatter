@@ -1,43 +1,65 @@
+h1 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 100%;
+  /* margin: 0 auto; */
   padding: 2rem;
 }
 
 .form-container {
+  height: fit-content;
   max-width: 400px; 
-  margin: 3rem auto;
-  padding: 1rem;
-  border: 1px solid #ccc; /* Valfritt: lägg till en ram för att se behållarens gränser */
-  border-radius: 8px; /* Valfritt: rundade hörn */
+  max-height: 100%;
+  /* margin: 3 auto; */
+  padding: 2rem;
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.form-container h1, h2{
+  text-align: center;
+  margin: 0.5rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;       
-  padding: 1rem;
 }
 
 .form label {
   /* Gör label till ett block för att etikett och input ska staplas */
   display: flex;
-  flex-direction: column; /* Gör att texten ("Username") och inputfältet staplas */
-  gap: 0.5rem; /* Utrymme mellan etikettens text och inputfältet */
+  flex-direction: column; /* Gör att texten ("Användarnamn") och inputfältet staplas */
+  gap: 0.3rem; /* Utrymme mellan etikettens text och inputfältet */
   font-weight: bold;
 }
 
-.form input[type="text"], 
-.form input[type="password"] {
+.form label p {
+  font-size: smaller;
+  margin: 0.2rem;
+}
+
+.form input {
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0,5rem;
 }
 
 /* Stilar för knappen */
-.form button[type="submit"] {
+form button[type="submit"] {
   padding: 1rem;
   background-color: #236d3e; 
   color: white;
@@ -48,6 +70,10 @@
   transition: background-color 0.3s ease;
 }
 
-.form button[type="submit"]:hover {
+form button[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+form button[type="submit"]:disabled {
+  background-color: #aab7af;
 }
