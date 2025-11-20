@@ -1,0 +1,26 @@
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 70%;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.input {
+  height: 22px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
+}
