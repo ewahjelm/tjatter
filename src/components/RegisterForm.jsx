@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import Button from './Button';
 
 export default function RegisterForm({ onSubmit }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [avatar, setAvatar] = useState("");
-
+    const completed = username.trim() !== "" && password.trim() !== "" && email.trim() !== "";
     function handleSubmit(e) {
         // skickar input upp till Register-container
         e.preventDefault();
@@ -55,7 +56,10 @@ export default function RegisterForm({ onSubmit }) {
                 </p>
             </label>
 
-            <button type="submit">Skapa användare</button>       
+            {/* <button type="submit">Skapa användare</button>    */}
+            <Button type="submit" 
+            disabled={!completed}> Skapa användare
+      </Button> 
         </form>
     );
 }

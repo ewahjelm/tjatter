@@ -27,11 +27,10 @@ export default function Login () {
     <div className="form-container">
         <h2>Välkommen till chat-appen</h2>
         <h1>Tjatter</h1>
-        <h3>Logga in</h3>
+        {/* <h3>Logga in</h3> */}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <LoginForm onSubmit={handleLogin} />
         <p>Har du inget konto?  <Link to="/register">Registrera dig här</Link> </p>
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
     );
 };
