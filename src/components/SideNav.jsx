@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Button from "./Button";
 import styles from "./SideNav.module.css";
@@ -9,9 +9,7 @@ export default function SideNav() {
   const { user, logout } = useAuth();
 
   const toggleMenu = () => setOpen(!open);
-  const navigate = useNavigate;
-
-                console.log("user", user)
+  const navigate = useNavigate();
 
   return (
     <>
@@ -59,23 +57,13 @@ export default function SideNav() {
                   }}
                   type="button"
                 >
-           Skapa användarkonto
+                Skapa användarkonto
                 </Button>
-
-                {/* <Link to="/login" onClick={toggleMenu}>
-                  Login
-                </Link>
-                <Link to="/register" onClick={toggleMenu}>
-                  Register
-                </Link> */}
               </>
             )}
 
             {user && (
               <>
-{/*                 <Link to="/chat" onClick={toggleMenu}>
-                  Chat
-                </Link> */}
                 <Button
                   onClick={() => {
                     logout();

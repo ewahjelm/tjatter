@@ -23,6 +23,18 @@ h3 {
   overflow: auto;   /* scroll i appen, inte på body */
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+  font-size: larger;
+}
+.success {
+  /* color: rgb(255, 0, 251); */
+  font-weight: bold;
+  font-size: larger;
+}
+
+
 .form-container {
   height: fit-content;
   max-width: 400px; 
@@ -63,11 +75,10 @@ h3 {
   font-size: 0,5rem;
 }
 
-.btn {
+/* .btn {
   justify-self: center;
-}
+} */
 
-/* Stilar för knappen */
 form button[type="submit"] {
   padding: 1rem;
   background-color: #236d3e; 
@@ -87,7 +98,7 @@ form button[type="submit"]:disabled {
   background-color: #aab7af;
 }
 
-/*  Stilar för Chat   */
+/*  css för Chat   */
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -96,7 +107,7 @@ form button[type="submit"]:disabled {
 }
 
 .messages {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: column;
   gap: 10px;
