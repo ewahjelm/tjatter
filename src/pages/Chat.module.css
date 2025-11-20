@@ -1,0 +1,35 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.message.mine {
+  align-self: flex-end;
+  background: #d3f7d3;
+}
+
+.message.theirs {
+  align-self: flex-start;
+  background: #eee;
+}
+
+.message-input {
+  display: flex;
+  gap: 10px;
+}
