@@ -69,5 +69,29 @@ export async function login(username, password) {
         token: data.token,
         user: decoded
     };
-    
+}
+
+// Hämta sparade meddelanden från servern
+export async function getMessages() {
+    const { data } = await api.get("/messages");
+
+    return data
+}
+
+// Spara skrivna meddelanden på servern
+export async function sendMessage() {
+    const { data } = await api.post("/messages", {
+        text,
+        // conversationId
+        });
+if (data.status ===201)
+        return { status: res.status, data: res.data };
+
+
+}
+
+// Radera sparade meddelanden från servern
+export async function deleteMessage() {
+    const { data } = await api.delete(`/messages/${msgId}`);
+    return data
 }
