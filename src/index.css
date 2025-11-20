@@ -1,18 +1,24 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color: rgba(7, 102, 75, 0.87);
   background-color: #dee2dd;
+} */
+ 
+/* Mobilfix-variabel – uppdateras av JavaScript */
+:root {
+  --vh: 1vh;
 }
 
-
-body {
+html, body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  height: calc(var(--vh) * 100);  /* Exakt skärmhöjd */
+  overflow: hidden;               /* Ingen scroll på hela sidan */
+  background-color: #dee2dd;
+  color: rgba(7, 102, 75, 0.87);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 

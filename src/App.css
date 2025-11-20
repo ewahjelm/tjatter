@@ -1,3 +1,8 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* stoppa scroll */
+}
 h1 {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 3rem;
@@ -13,15 +18,15 @@ h3 {
 
 #root {
   max-width: 100%;
-  /* margin: 0 auto; */
   padding: 2rem;
+  height: calc(var(--vh) * 100);   /* mobilfix */
+  overflow: auto;   /* scroll i appen, inte på body */
 }
 
 .form-container {
   height: fit-content;
   max-width: 400px; 
   max-height: 100%;
-  /* margin: 3 auto; */
   padding: 2rem;
   border: 1px solid #ccc; 
   border-radius: 8px; 
@@ -80,4 +85,41 @@ form button[type="submit"]:hover {
 
 form button[type="submit"]:disabled {
   background-color: #aab7af;
+}
+
+/*  Stilar för Chat   */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.message.mine {
+  align-self: flex-end;
+  background: #d3f7d3;
+}
+
+.message.theirs {
+  align-self: flex-start;
+  background: #eee;
+}
+
+.message-input {
+  display: flex;
+  gap: 10px;
 }
