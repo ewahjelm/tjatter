@@ -1,5 +1,7 @@
 import { createContext, useContext, useState} from "react";
-import {login as apiLogin, register as apiRegister } from "../api/api"
+import {login as apiLogin, register as apiRegister, getMessages as getApiMessages,
+        getMessages as getApiMessages, sendMessage as sendApiMessage, 
+ } from "../api/api"
 
 const AuthContext = createContext();
 
@@ -40,6 +42,39 @@ export function AuthProvider({ children }) {
         sessionStorage.removeItem("user");
     };
 
+    const getMessages = async () => {
+        try {
+            const messages = await getApiMessages()
+            console.log("messagelist", messages)
+            return messages;
+        } catch (error) {
+            console.error("Dina meddelanden kunde inte hämtas från servern:", error);
+            throw error;
+        }
+    };
+
+    const sendMessage = async () => {
+        try {
+            const messages = await sendApiMessage()
+            console.log("messagelist", messages)
+            return messages;
+        } catch (error) {
+            console.error("Dina meddelanden kunde inte hämtas från servern:", error);
+            throw error;
+        }
+    };
+
+    const deleteMessage = async (msg) => {
+        const msg = messages.find(m => m.id === id);
+
+        if (!msg) throw new Error("Meddelandet kunde inbte");
+        if (msg.userId !== userId) throw new Error("Not authorized");
+
+        messages = messages.filter(m => m.id !== id);
+
+    }
+    };
+
     return (
         <AuthContext.Provider
         value={{
@@ -47,6 +82,9 @@ export function AuthProvider({ children }) {
             login,
             logout,
             register,
+            getMessages,
+            sendMessage,
+            deleteMessage,
         }}
         >
         {children}
