@@ -58,6 +58,10 @@ h3 {
   font-size: 0,5rem;
 }
 
+.btn {
+  justify-self: center;
+}
+
 /* Stilar för knappen */
 form button[type="submit"] {
   padding: 1rem;
