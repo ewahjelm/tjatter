@@ -1,10 +1,14 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { Login, Register, Chat } from './pages'
-import LoginForm from './components/LoginForm'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import ProtectedRoute from './routes/ProtectedRoute'
 import SideNav from './components/SideNav'
+
+function HomeRedirect() {
+  const { user } = useAuth()
+  return <Navigate to={user ? '/chat' : '/login'} replace />
+}
 
 function App() {
   return (
@@ -12,7 +16,7 @@ function App() {
       <AuthProvider>
         <SideNav/>
         <Routes>
-          <Route path='/' element={ <Login/> }/>
+          <Route path='/' element={ <HomeRedirect/> }/>
           <Route path='/login' element={ <Login/> }/>
           <Route path='/register' element={ <Register/> }/>
           <Route 
