@@ -100,14 +100,16 @@ form button[type="submit"]:disabled {
 
 /*  css för Chat   */
 .chat-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
   height: 100%;
+  overflow: hidden;
 }
 
 .messages {
-  /* flex: 1; */
+  flex: 0.9;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -115,22 +117,77 @@ form button[type="submit"]:disabled {
 }
 
 .message {
-  max-width: 60%;
-  padding: 10px;
+  padding: 8px 12px;
   border-radius: 12px;
+  max-width: 65%;
 }
 
 .message.mine {
-  align-self: flex-end;
-  background: #d3f7d3;
+  background: #92de92; /* ljus blå */
 }
 
 .message.theirs {
+  background: #f0f0e7;
   align-self: flex-start;
-  background: #eee;
+}
+.message-row {
+  display: flex;
+  align-items: center;
+  gap: 6px; lite luft mellan bubblan och knappen
+}
+
+.message-row.mine {
+  justify-content: flex-end;
+}
+
+.message-row.theirs {
+  justify-content: flex-start;
 }
 
 .message-input {
   display: flex;
   gap: 10px;
+  padding: 10px;          /* Inre marginal */
+  border-top: 1px solid #ccc; /* Avgränsning mot meddelanden */
+  background: #f9f9f9;    Ljus bakgrund som står ut mot bubblor
+  position: sticky;        /* Håller input längst ner vid scroll */
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;  /* Inkluderar padding i width */
+
+}
+.message-input input {
+  flex: 1;                 /* Tar upp all ledig plats */
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;     /* Rundade hörn */
+  /* outline: none; */
+}
+
+.message-input button {
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #236d3e; /* Matchar submit-knappen i formulär */
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.message-input button:hover {
+  background-color: #1b5a30;
+}
+.delete-btn {
+  margin-left: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.delete-btn:hover {
+  opacity: 1;
 }
