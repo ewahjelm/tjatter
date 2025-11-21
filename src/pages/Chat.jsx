@@ -109,6 +109,7 @@ export default function Chat() {
 
     return (
         <div className="chat-container">
+            <h2>Chatt-rum</h2>
             <div className="messages">
                 {messages.map(msg => {
                     const isMine = msg.userId === user.id;

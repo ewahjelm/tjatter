@@ -25,8 +25,6 @@ export default function SideNav() {
         className={`${styles.sidenav} ${open ? styles.open : ""}`}
       >
         <div className={styles.menuContent}>
-          <h2 className={styles.title}>Meny</h2>
-
           {user && (
             <div className={styles.userInfo}>
               <img

@@ -1,24 +1,18 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* stoppa scroll */
-}
-h1 {
+  height: 100%;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 3rem;
-}
-
-h2 {
-  font-size: 1.2rem;
-}
-
-h3 {
-  font-size: 1rem;
+  overflow: hidden; /* stoppa scroll */
 }
 
 #root {
-  max-width: 100%;
-  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+    padding-top: 2rem; 
+  box-sizing: border-box;
   height: calc(var(--vh) * 100);   /* mobilfix */
   overflow: auto;   /* scroll i appen, inte på body */
 }
@@ -34,32 +28,38 @@ h3 {
   font-size: larger;
 }
 
-
 .form-container {
-  height: fit-content;
-  max-width: 400px; 
-  max-height: 100%;
-  padding: 2rem;
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 90vh;           /* nästan hela höjden */
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
-.form-container h1, h2{
+
+.form-container h1, .form-container h2{
   text-align: center;
-  margin: 0.5rem;
+  margin: 1rem 0;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 1.5rem;       
 }
 
 .form label {
-  /* Gör label till ett block för att etikett och input ska staplas */
+  
   display: flex;
-  flex-direction: column; /* Gör att texten ("Användarnamn") och inputfältet staplas */
-  gap: 0.3rem; /* Utrymme mellan etikettens text och inputfältet */
+  flex-direction: column; 
+  gap: 0.3rem;
   font-weight: bold;
 }
 
@@ -72,12 +72,10 @@ h3 {
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 0,5rem;
+  font-size: 1rem;
+/*     width: 100%;
+  box-sizing: border-box; */
 }
-
-/* .btn {
-  justify-self: center;
-} */
 
 form button[type="submit"] {
   padding: 1rem;
@@ -100,40 +98,50 @@ form button[type="submit"]:disabled {
 
 /*  css för Chat   */
 .chat-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 100%;
+  width: 100%;
+  max-width: 400px;
+  height: 90vh;  /* nästan full höjd */
+  border: 1px solid #ccc;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chat-container h2{
+  text-align: center;
 }
 
 .messages {
-  flex: 0.9;
+  flex: 1;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   overflow-y: auto;
 }
 
 .message {
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 65%;
+  max-width: 70%;
 }
 
 .message.mine {
-  background: #92de92; /* ljus blå */
+  background: #d3f7d3;
+  align-self: flex-end;
 }
 
 .message.theirs {
-  background: #f0f0e7;
+  background: #eee;
   align-self: flex-start;
 }
+
 .message-row {
   display: flex;
   align-items: center;
-  gap: 6px; lite luft mellan bubblan och knappen
+  gap: 6px; 
 }
 
 .message-row.mine {
@@ -147,11 +155,10 @@ form button[type="submit"]:disabled {
 .message-input {
   display: flex;
   gap: 10px;
-  padding: 10px;          /* Inre marginal */
-  border-top: 1px solid #ccc; /* Avgränsning mot meddelanden */
-  background: #f9f9f9;    Ljus bakgrund som står ut mot bubblor
-  position: sticky;        /* Håller input längst ner vid scroll */
-  bottom: 0;
+  padding: 10px;          
+  border-top: 1px solid #ccc; 
+  background: #f9f9f9;   
+  position: sticky;        
   width: 100%;
   box-sizing: border-box;  /* Inkluderar padding i width */
 
@@ -161,15 +168,14 @@ form button[type="submit"]:disabled {
   padding: 10px;
   font-size: 1rem;
   border: none;
-  border-radius: 4px;     /* Rundade hörn */
-  /* outline: none; */
+  border-radius: 4px;     
 }
 
 .message-input button {
   padding: 0 20px;
   border: none;
   border-radius: 8px;
-  background-color: #236d3e; /* Matchar submit-knappen i formulär */
+  background-color: #236d3e;
   color: white;
   font-size: 1rem;
   cursor: pointer;
@@ -190,4 +196,19 @@ form button[type="submit"]:disabled {
 
 .delete-btn:hover {
   opacity: 1;
+}
+
+/* Responsiv text */
+h1 { font-size: 2rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1rem; }
+
+@media (max-width: 500px) {
+  .form-container, .chat-container {
+    height: 95vh;
+    padding: 1rem;
+  }
+
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1rem; }
 }
