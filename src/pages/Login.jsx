@@ -19,7 +19,7 @@ export default function Login () {
             await login(username, password);
             navigate("/chat")
         } catch (err) {
-            setError("Nu blev det nog fel användarnamn eller lösenord. Försök igen!")
+            setError("Fel användarnamn eller lösenord.")
         }
     }
 
@@ -27,8 +27,7 @@ export default function Login () {
     <div className="form-container">
         <h2>Välkommen till chat-appen</h2>
         <h1>Tjatter</h1>
-        {/* <h3>Logga in</h3> */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
         <LoginForm onSubmit={handleLogin} />
         <p>Har du inget konto?  <Link to="/register">Registrera dig här</Link> </p>
     </div>

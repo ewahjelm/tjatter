@@ -11,7 +11,7 @@ html, body {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-    padding-top: 2rem; 
+  padding-top: 2rem; 
   box-sizing: border-box;
   height: calc(var(--vh) * 100);   /* mobilfix */
   overflow: auto;   /* scroll i appen, inte på body */
@@ -20,7 +20,7 @@ html, body {
 .error {
   color: red;
   font-weight: bold;
-  font-size: larger;
+  margin: 1rem;
 }
 .success {
   /* color: rgb(255, 0, 251); */
