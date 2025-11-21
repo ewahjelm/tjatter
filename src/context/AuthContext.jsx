@@ -50,13 +50,13 @@ export function AuthProvider({ children }) {
             return await getApiMessages()
         } catch (error) {
             console.error("Kunde inte hämta meddelanden:", error);
-            throw error;
+            throw error;    
         }
     };
 
-    const sendMessage = async () => {
+    const sendMessage = async (cleanInput) => {
         try {
-            return await sendApiMessage()
+            return await sendApiMessage(cleanInput)
         } catch (error) {
             console.error("Kunde inte skicka meddelanden:", error);
             throw error;
@@ -70,14 +70,7 @@ export function AuthProvider({ children }) {
       throw error
     }
   }
-/*     const deleteMessage = async (msgID) => {
-        const msg = messages.find(m => m.id === id);
 
-        if (!msg) throw new Error("Meddelandet kunde inbte");
-        if (msg.userId !== userId) throw new Error("Not authorized");
-
-        messages = messages.filter(m => m.id !== id);
-    } */
 
     return (
         <AuthContext.Provider

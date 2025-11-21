@@ -73,25 +73,31 @@ export async function login(username, password) {
 
 // Hämta sparade meddelanden från servern
 export async function getMessages() {
+    try {
     const { data } = await api.get("/messages");
-
-    return data
+    // data förväntas vara en array av meddelanden från backend
+    return data;
+  } catch (err) {
+    console.error("getMessages failed:", err);
+    throw err;
+  }
 }
 
 // Spara skrivna meddelanden på servern
-export async function sendMessage() {
-    const { data } = await api.post("/messages", {
-        text,
-        // conversationId
-        });
-if (data.status ===201)
-        return { status: res.status, data: res.data };
-
-
+export async function sendMessage(text) {
+    const res = await api.post("/messages", { text });
+    // Backend returnerar komplett meddelande med id, userId, timestamp
+    return res.data.latestMessage;
 }
 
 // Radera sparade meddelanden från servern
-export async function deleteMessage() {
-    const { data } = await api.delete(`/messages/${msgId}`);
-    return data
+export async function deleteMessage(msgId) {
+    try {
+        const { data } = await api.delete(`/messages/${msgId}`);
+        return data
+    } catch (error) {
+    console.error("Kunde inte ta bort meddelande:", error);
+    throw error;
+
+    }
 }
